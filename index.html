@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Slide Puzzle</title>
+        <style>
+             .item-puz{
+               max-width: 960px;
+               width: 100%;
+               margin: auto;
+               display: flex;
+               flex-wrap: wrap;
+               background-color: #BFBFBF;
+               
+            }
+            @media  screen and (max-width: 600px)  {
+                .item-puz {
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+                #puzzle-item, .button2{
+                    margin-bottom: 20px !important;
+                }
+                .puz-section{
+                    margin-right: 32%;
+                    align-items: center;
+                }
+            }
+            #puzzle-item {
+                width: 63%;
+                /* height: 600px; */
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                /* border: 0.5px solid; */
+                margin-bottom: 80px;
+            }            
+            .puz-section{
+                width: 37%;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                
+            }
+             .shuffleMe {
+                width: 198px;
+                height: 198px;
+                margin: 0px;
+                font-size: 50px;
+                color: #FFF;
+                font-weight: 700;
+                /* border: 1px solid; */
+                display: flex; 
+                flex-wrap: wrap;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                font-size: 2em;
+                background-color: #ddd;
+            }
+             /* .shuffleMe:nth-of-type(1){
+                background-color: #6F98A8;
+            }
+            .shuffleMe:nth-of-type(3){
+                background-color: #2F454E;
+            }
+            .shuffleMe:nth-of-type(5){
+                background-color: #2F454E;
+            }
+            .shuffleMe:nth-of-type(9){
+                background-color: #2F454E;
+            }
+            .shuffleMe:nth-of-type(2){
+                background-color: #2B8EAD;
+            }
+            .shuffleMe:nth-of-type(4){
+                background-color: #2B8EAD;
+            }
+            .shuffleMe:nth-of-type(8){
+                background-color: #6F98A8;
+            }  */
+
+            .button1 ,.button2{
+               width: 200px;
+               margin-top: 20px;
+               margin-left: 20px;
+               padding: 10px;
+               border-radius: 5px;
+               background-color: aqua;
+               border: none;
+               box-shadow: 2px 3px #8cbfe9;
+            }
+        </style>
+    </head>
+    <body >
+        <!-- <button onclick="randomizePuzzle()">click</button> -->
+        <!-- <div style="width:960px ;margin:auto"> -->
+        <div class="item-puz">
+            
+            <!-- <div id="puzzle-container"> -->
+            <div id="puzzle-item">
+                <div class="shuffleMe" id="1" style="background-color: #6F98A8;">  1</div>
+                <div class="shuffleMe" id="2" style="background-color: #2B8EAD;">  2</div>
+                <div class="shuffleMe" id="3" style="background-color: #2F454E;">  3</div>
+                <div class="shuffleMe" id="4" style="background-color: #2B8EAD;">  4</div>
+                <div class="shuffleMe" id="5" style="background-color: #2F454E;">  5</div>
+                <div class="shuffleMe" id="6" style=" background-color: #ddd">  6</div>
+                <div class="shuffleMe" id="7" style=" background-color: #ddd">  7</div>
+                <div class="shuffleMe" id="8" style=" background-color: #6F98A8;"> 8</div>
+                <div class="shuffleMe" id="9" style="background-color: #2F454E;"> 9</div>
+            </div>
+            <!-- </div> -->
+            <div class="puz-section">
+                <button class="button1" onclick="shuffle()">Shuffle</button>
+                <button class="button2" onclick="order_bingo_item()">Sort</button>
+            </div>
+        </div>
+    <!-- </div> -->
+
+        <script>
+                function shuffle() {
+                var container = document.getElementById("puzzle-item");
+                var elementsArray = Array.prototype.slice.call(container.getElementsByClassName('shuffleMe'));
+                //console.log(elementsArray)
+                elementsArray.forEach(function(element){
+                    // console.log('element',element)
+                container.removeChild(element);
+                })
+                shuffleArray(elementsArray);
+                elementsArray.forEach(function(element){
+                container.appendChild(element);
+                })
+                }
+
+                function shuffleArray(array) {
+                for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                }
+                return array;
+                }
+
+                    function order_bingo_item() {
+                        var container = document.getElementById("puzzle-item");
+                        var elementsArray = Array.prototype.slice.call(container.getElementsByClassName('shuffleMe'));
+                        
+                        newelements=elementsArray.sort((a, b) => {     return a.id - b.id; });
+
+                        console.log(newelements);
+                        
+                        container.innerHTML=[];
+                        newelements.forEach((ele)=>{
+                            container.append(ele);
+                        })
+                    }
+        </script>
+    </body>
+</html>
